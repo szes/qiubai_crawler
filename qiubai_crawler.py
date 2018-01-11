@@ -6,7 +6,8 @@ import re
 
 #糗事百科爬虫类
 class QBCrawler:
-
+    '''获取糗事段子爬虫类'''
+	
     #初始化方法，定义一些变量
     def __init__(self):
         self.pageIndex = 1
@@ -17,6 +18,8 @@ class QBCrawler:
         self.stories = []
         #存放程序是否继续运行的变量
         self.enable = False
+	
+
     #传入某一页的索引获得页面代码
     def getPage(self,pageIndex):
         try:
@@ -61,6 +64,7 @@ class QBCrawler:
                 pageStories.append([item[0].strip(),text.strip(),item[3].strip()])
         return pageStories
 
+
     #加载并提取页面的内容，加入到列表中
     def loadPage(self):
         #如果当前未看的页数少于2页，则加载新一页
@@ -73,6 +77,7 @@ class QBCrawler:
                     self.stories.append(pageStories)
                     #获取完之后页码索引加一，表示下次读取下一页
                     self.pageIndex += 1
+
     
     #调用该方法，每次敲回车打印输出一个段子
     def getOneStory(self,pageStories,page):
@@ -87,6 +92,7 @@ class QBCrawler:
                 self.enable = False
                 return
             print u"第%d页\t发布人:%s\t赞:%s\n%s" %(page,story[0],story[2],story[1])
+
     
     #开始方法
     def start(self):
