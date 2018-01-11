@@ -1,8 +1,9 @@
-__author__ = 'hugo'
 # -*- coding:utf-8 -*-
 import urllib
 import urllib2
 import re
+
+__author__ = 'hugo'
 
 #糗事百科爬虫类
 class QBCrawler:
@@ -47,9 +48,9 @@ class QBCrawler:
         pattern = re.compile(r'<h2>(.*?)</h2>.*?content.*?span>(.*?)</.*?-->(.*?)<!--.*?number">(.*?)</i>',re.S)
         items = re.findall(pattern,pageCode)
         if len(items) > 0:
-			print "获取到了数据，哈哈哈哈"
+			print "读取成功，哈哈哈哈!!"
         else:
-			print "获取数据失败，哈哈哈哈"
+			print "读取失败，哈哈哈哈!!"
         #用来存储每页的段子们
         pageStories = []
         #遍历正则表达式匹配的信息
@@ -84,11 +85,12 @@ class QBCrawler:
         #遍历一页的段子
         for story in pageStories:
             #等待用户输入
+            print u"\n按回车查看新段子，q退出"
             input = raw_input()
             #每当输入回车一次，判断一下是否要加载新页面
-            self.loadPage()
+            # self.loadPage()
             #如果输入Q则程序结束
-            if input == "Q":
+            if input == "q":
                 self.enable = False
                 return
             print u"第%d页\t发布人:%s\t赞:%s\n%s" %(page,story[0],story[2],story[1])
@@ -96,14 +98,15 @@ class QBCrawler:
     
     #开始方法
     def start(self):
-        print u"正在读取糗事百科,按回车查看新段子，Q退出"
+        print u"正在读取糗事百科"
         #使变量为True，程序可以正常运行
         self.enable = True
-        #先加载一页内容
-        self.loadPage()
+        # 先加载一页内容
+        # self.loadPage()
         #局部变量，控制当前读到了第几页
         nowPage = 0
         while self.enable:
+            self.loadPage() # 加载一页内容
             if len(self.stories)>0:
                 #从全局list中获取一页的段子
                 pageStories = self.stories[0]
